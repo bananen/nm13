@@ -17,8 +17,94 @@
 \tableofcontents
 \vspace{1cm}
 
-\chapter{Algorithmen}
+\chapter{Lineare Gleichungssysteme}
 
-\section{LR-Zerlegung}
+Problem: Finde Loesungsvektor x fuer\\\\
+$Ax = b$\\\\
+Das Problem besitzt genau dann eine eindeutige Loesung x*, wenn A invertierbar ist.
+Theoretische Loesung: $x* = A^{-1}b$
+
+\section{Gaußsches Eliminationsverfahren}
+
+Problem: Finde Loesungsvektor x fuer\\\\
+$Ax = b$, wobei A invertierbar\\\\
+Fuer jede invertierbare Matrix A existiert eine Permutationsmatrix P derart, dass eine (dazu) eindeutige Dreieckszerlegung $PA = LR$ moeglich ist, wobei R eine obere Dreickecksmatrix und L eine untere unipotente Dreiecksmatrix ist.
+
+\subsection{Algorithmus}
+
+\begin{itemize}
+	\item Bestimme Matrizen P, L und R mit $PA = LR$
+	\item Loese $Lc = Pc$ (Vorwaertssubstitution)
+	\item Loese $Rx = c$ (Rueckwaertssubstitution)
+\end{itemize}
+
+Aufwand der LR-Zerlegung: $\frac{n^3}{3} - \frac{n}{3}$
+
+\chapter{Einschub: Gleitpunktrechnung, Matrixnormen}
+
+\section{Gleitpunktrechnung}
+
+Darstellung einer Gleitpunktzahl: $z = a * d^e$ mit $e_{min} \leq e \leq e_{max}$
+
+\section{Matrixnormen}
+
+Eine Abbildung von einem Vektorraum in die reellen Zahlen heißt eine Norm, wenn gilt:
+\begin{itemize}
+	\item $||v|| \geq 0$ und ($||v|| = 0 \Leftrightarrow v = 0$) (positive Definitheit)
+	\item $||\alpha v|| = |\alpha|||v||$ (Homogenitaet)
+	\item $||v_1 + v_2|| \leq ||v_1|| + ||v_2||$ (Dreiecksungleichung)
+\end{itemize}
+
+Eine Matrixnorm passt zu einer gegebenen Vektornorm genau dann, wenn\\
+$||Ax|| \leq ||A||||x||$\\\\
+
+Sei $||.||$ eine beliebige Norm, dann definieren wir die zugehoerige Matrixnorm als\\
+$||A|| := \sup\limits_{x \neq 0}\frac{||Ax||}{||x||}$\\\\
+
+\section{Kondition linearer Gleichungssysteme}
+
+$cond(A) := ||A||||A^{-1}||$\\\\
+
+Eigenschaften:\\
+$cond(A) = cond(\alpha A)$\\
+$cond(A) = \frac{max_{||y|| = 1}||Ay||}{min_{||z|| = 1}||Az||}$
+
+\section{Cholesky-Verfahren fuer symmetrische, positiv definite Matrizen}
+
+Sei A symmetrisch und positiv definit, dann gilt fuer die Zerlegung $A = LR$: $R = DL^T$, wobei D eine positiv definite Diagonalmatrix ist. Da $D = diag(d_i)$ positiv definit, existiert $D^\frac{1}{2} = diag(\sqrt{d_i})$ und daher die Cholesky-Zerlegung:\\
+$A = \overline{L}\overline{L}^T$\\
+mit unterer Dreiecksmatrix $\overline{L} = LD^\frac{1}{2}$
+
+\subsection{Rechenaufwand}
+
+$\frac{1}{6}n^3$
+
+\subsection{Algorithmus}
+\begin{itemize}
+	\item Bestimme mit dem Cholesky-Verfahren $\overline{L}$ mit $A = \overline{L}\overline{L}^T$ (Cholesky-Zerlegung)
+	\item Loese $\overline{L}c = b$ (Vorwaertssubstitution)
+	\item Loese $\overline{L}^Tx = c$ (Rueckwaertssubstitution)
+\end{itemize}
+
+
+\chapter{Misc}
+
+\section{Cholesky-Zerlegung}
+
+\begin{itemize}
+	\item Bestimme mit dem Cholesky-Verfahren $\overline{L}$ mit $A = \overline{L} * \overline{L}^T$ (Cholesky-Zerlegung)
+	\item Loese $\overline{L}c = b$ (Vorwaertssubstitution)
+	\item Loese $\overline{L}^Tx = c$ (Rueckwaertssubstitution)
+\end{itemize}
+
+Aufwand: $\frac{1}{6}n^3$
+
+\section{QR-Zerlegung}
+
+\begin{itemize}
+	\item Bestimme Matrizen Q und R mittels Householder-Transformationen mit $A = QR$ (QR-Zerlegung)
+	\item Loese $Qc = b$ ($Q^{-1} = Q^T$, also $c = Q^Tb$)
+	\item Loese $Rx = c$ (Rueckwaertssubstitution)
+\end{itemize}
 
 \end{document}
