@@ -117,4 +117,39 @@ Seien $A \in \mathbb{R}^{mxn}$ mit $m \geq n$ eine Matrix mit vollem Rang und Q 
 
 \chapter{Nichtlineare Gleichungssysteme}
 
+\section{Fixpunktiteration}
+
+Problem: Fuer vorgegebene Abbildung $F: D \subset \mathbb{R}^n \rightarrow \mathbb{R}^n$ finde x mit $F(x) = x$. Dieses x heißt Fixpunkt. Das Problem ist aequivalent zu $-Af(x) = 0$, falls A invertierbar. Somit ist $f(x) = 0$ aequivalent zu $F(x) = x$ mit $F(x) := x - Af(x)$.\\\\
+
+Idee der Fixpunktiteration: $x_{k+1} = F(x_k)$, wobei diese Folge gegen den Fixpunkt $x^*$ konvergiert.\\\\
+
+Eine Abblidung $F: D \rightarrow D \subset \mathbb{R}^n$ ist eine Kontraktion auf D, falls ein $0 \leq \Theta < 1$ existiert mit $||F(x) - F(y)|| \leq \Theta ||x-y||$
+
+\subsection{Banachscher Fixpunktsatz}
+Es sei $F: D \rightarrow D$ eine Kontraktion auf D, D abgeschlossene Teilmenge des $\mathbb{R}^n$, mit Kontraktionszahl $0 \leq \Theta < 1$. Dann gilt:
+\begin{itemize}
+	\item Es existiert genau ein Fixpunkt $x^*$ von F
+	\item Die durch die Vorschrift $x_{k+1} = F(x_k)$ definierte Folge konvergiert gegen $x^*$ fuer jeden Startwert $x_0 \in D$.
+	\item Es gelten die Abschaetzungen
+		\begin{itemize}
+			\item $||x^* - x_k|| \leq \Theta ||x^* - x_{k-1}||$ (lineare Konvergenz)
+			\item $||x^* - x_k|| \leq \frac{\Theta}{1 - \Theta} ||x_0 - x_1||$ (a priori-Abschaetzung)
+			\item $||x^* - x_k|| \leq \frac{\Theta}{1 - \Theta} ||x_{k-1} - x_k||$ (a posteriori-Abschaetzung)
+		\end{itemize}
+\end{itemize}
+
+\section{Das Newton-Verfahren}
+
+\subsection{Praktische Durchfuehrung}
+Waehle Startwert $x_0$\\
+while $(|| \Delta x_k)|| >$ TOL do\\
+\hspace*{10mm} Loese $f'(x_k) \Delta x_k = -f(x_k)$ (lin. Gleichungssystem, berechne LR-Zerlegung)\\
+\hspace*{10mm} Berechne $x_{k+1} = x_k + \Delta x_k$\\
+
+\subsection{Praktische Durchfuehrung des vereinfachten Newton-Verfahrens}
+Waehle Startwert $x_0$ und berechne LR-Zerlegung von $A \approx f'(x_0)$\\
+while $(|| \Delta x_k)|| >$ TOL do\\
+\hspace*{10mm} Loese $A \Delta x_k = -f(x_k)$\\
+\hspace*{10mm} Berechne $x_{k+1} = x_k + \Delta x_k$\\
+
 \end{document}
