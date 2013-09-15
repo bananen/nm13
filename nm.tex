@@ -237,6 +237,52 @@ h_1 & 2(h_1 + h_2) & h_2\\
 \begin{pmatrix}\gamma_0\\\gamma_1\\...\\\gamma_{n-1}\\\gamma_n\end{pmatrix}=
 \begin{pmatrix}d_0\\d_1\\...\\d_{n-1}\\d_n\end{pmatrix}$
 
+\chapter{Numerische Integration}
+
+\begin{itemize}
+	\item Rechteckregel: $I(f) \approx (b-a)f(a)$
+	\item Mittelpunktregel: $I(f) \approx (b-a)f(\frac{a+b}{2})$
+	\item Trapezregel: $I(f) \approx (b-a)\frac{f(a) + f(b)}{2}$
+	\item Simpsonregel: $I(f) \approx \frac{b-a}{6}(f(a) + 4f(\frac{a+b}{2})+f(b))$
+\end{itemize}
+
+\section{Quadraturformeln}
+
+Die allgemeine Form einer Quadraturformel ist gegeben durch:\\
+$\int_a^bf(x)dx \approx (b-a)\sum_{i=1}^sb_if(a+c_i(b-a))$\\
+wobei $b_i$ die Gewichte und $c_i$ die Knoten sind.\\\\
+
+Fuer die Beispiele gilt:
+\begin{itemize}
+	\item Rechteckregel: $s=1,b_1=1,c_1=0$
+	\item Mittelpunktregel: $s=1,b_1=1,c_1=\frac{1}{2}$
+	\item Trapezregel: $s=2,b_1=b_2=\frac{1}{2},c_1=0,c_2=1$
+	\item Simpsonregel: $s=3,b_1=b_3=\frac{1}{6},b_2=\frac{4}{6},c_1=0,c_2=\frac{1}{2},c_3=1$
+\end{itemize}
+
+Es gilt: $\sum_{i=1}^sb_i=1$ und allgemein:\\
+$\frac{1}{p} = \int_0^1x^{p-1}dx=\sum_{i=1}^sb_ic_i^{p-1}$\\\\
+
+Eine Quadraturformel hat die Ordnung p, falls sie exakte Loesungen fuer alle Polynome vom Grad $\leq p-1$ liefert.\\\\
+
+Seien Knoten $c_1 < ...<c_s$ vorgegeben. Verlangen wir von einer Quadraturformel mindestens die Ordnung s, so sind die Gewichte eindeutig bestimmt durch\\\\
+$b_i = \int_0^1L_i(x)dx$, wobei\\\\
+$L_i(x) = \prod_{j=1,j \neq i}^s\frac{x-c_j}{c_i-c_j}$ das i-te Lagrande-Polynom bezeuglich der Knoten $c_j$ ist.
+
+\subsection{Quadraturformeln mit erhoehter Ordnung}
+
+Wir suchen Quadraturformeln mit Ordnung $p=s+m$, hierfuer benutzen wir das Polynom:\\
+$M(x) = (x-c_1)(x-c_2)*...*(x-c_s)$\\\\
+
+
+Sei eine Quadraturformel der Ordnung $p\geq s$ gegeben. Die Ordnung ist genau dann $s+m$, falls
+$\int_0^1M(x)g(x)dx = 0$
+fuer alle Polynome g vom Grad $\leq m-1$ gilt.\\\\
+
+Die maximale Ordnung einer Quadraturformel ist $2s$.\\\\
+
+Es existiert eine eindeutige Quadraturformel der Ordnung $2s$.
+
 
 
 \end{document}
