@@ -150,6 +150,93 @@ while $(|| \Delta x_k)|| >$ TOL do\\
 Waehle Startwert $x_0$ und berechne LR-Zerlegung von $A \approx f'(x_0)$\\
 while $(|| \Delta x_k)|| >$ TOL do\\
 \hspace*{10mm} Loese $A \Delta x_k = -f(x_k)$\\
-\hspace*{10mm} Berechne $x_{k+1} = x_k + \Delta x_k$\\
+\hspace*{10mm} Berechne $x_{k+1} = x_k + \Delta x_k$
+
+\chapter{Interpolation und Approximation}
+
+\section{Polynominterpolation}
+
+Gegeben sind $n + 1$ Stuetzwerte $f_i:=f(x_i)$ einer Funktion f an den Stuetzstellen $x_0 < x_1 < ... < x_n$. Suche Polynom $p(x)$ vom Grad $\leq n$ mit $p(x_i) = f_i$ fuer $i = 0,...,n$. Ein Polynom vom Grad $\leq n$ ist durch Vorgabe von $n + 1$ Punkten eindeutig bestimmt.\\
+
+Lagrangsche Interpolationsformel: Zu $n+1$ Stuetzpunkten existiert genau ein Interpolationspolynom $p(x)$ vom Grad $\leq n$, welches gegeben ist durch $p(x) = \sum_{i=0}^n f_i L_i(x)$, wobei $L_i(x)$ die Lagrange-Polynome der Stuetzstellen $x_i$ sind: $L_i(x) = \prod_{j=0, j \neq i}^n \frac{x - x_j}{x_i - x_j}$.
+
+\subsection{Newtonsche Interpolationsformel / Dividierte Differenzen}
+
+Wir schreiben:\\
+$p(f|x_0,...,x_n) = a_0 + a_1(x - x_0) + a_2(x - x_0)(x - x_1) + ... + a_n(x - x_0)*...*(x - x_{n-1})$.
+
+Darstellungen eines Polynoms vom Grad $\leq n$:
+\begin{itemize}
+	\item $p(x) = c_0 + c_1x + ... + c_{n-1}x^{n-1} + c_nx^n$ zur Basis der Monome
+	\item $p(x) = b_0L_0(x) + b_1L_1(x) + ... + b_nL_n(x)$ zur Lagrange-Basis
+	\item $p(x) = a_0 + a_1w_1(x) + ... + a_nw_n(x)$ zur Newton-Basis mit $w_i(x) = \prod_{j=0}^{i-1}(x - x_j)$
+\end{itemize}
+
+Es gilt $a_n = c_n$.\\
+
+Berechnung der Koeffizienten $a_i$ fuer Menschen:\\
+$f_0 = p(x_0) = a_0$\\
+$f_1 = p(x_1) = a_0 + (x_1 - x_0)a_1$\\
+$f_2 = p(x_2) = a_0 + (x_2 - x_0)a_1 + (x_2 - x_0)(x_2 - x_1)a_2$\\
+
+Aufwand der Koeffizientenbestimmung: n Divisionen, $n(n-1)$ Multiplikationen, $n(n+1)$ Additionen.\\
+
+Wir nennen den Koeffizienten $a_n$ die n-te dividierte Differenz von f zu den Stuetzstellen $x_0,...,x_n$ und wir schreiben $f[x_0,...,x_n] := a_n$.\\\\
+
+Newtonsche Interpolationsformel:\\
+Zu $n+1$ Stuetzstellen $(x_i,f_i), i=0,...,n$ existiert genau ein Interpolationspolynom $p(x)$ vom Grad $\leq n$, welches gegeben ist durch\\\\
+$p(x) = f[x_0] + (x-x_0)f[x_0,x_1] + ...+ (x-x_0)*...*(x-x_{n-1})f[x_0,...,x_n]$\\\\wobei die dividierten Differenzen gegeben sind durch\\\\
+$f[x_i]:=f_i, f[x_i,...,x_{i+k}] = \frac{f[x_i,...,x_{i+k-1}]-f[x_{i+1},...,x_{i+k}]}{x_i - x_{i+k}}$\\\\
+
+\subsection{Tschebyscheff-Interpolation}
+
+Definition der Tschebyscheff-Polynome:\\
+$T_0(x) = 1$\\
+$T_1(x) = x$\\
+$T_{n+1}(x) = 2x * T_n(x)-T_{n-1}(x)$\\
+
+$T_n$ ist ebenfalls gegeben durch $T_n(x) = cos(n*arccos(x))$\\\\
+
+Zu $n+1$ Stuetzstellen, wobei die Stuetzstellen genau den Nullstellen des Tschebyscheff-Polynoms $T_{n+1}$ entsprechen, laesst sich das eindeutige Interpolationspolynom $p(x) = p(f|x_0,...,x_n)$ vom Grad $\leq n$ darstellen durch\\\\
+$p(x) = \frac{1}{2}c_0+c_1T_1(x) + ...+ c_nT_n(x)$\\\\
+mit\\\\
+$c_k = \frac{2}{n+1}\sum_{i=0}^nf_icos(k\frac{2i+1}{2n+2}\pi)$\\\\
+Aufwand der Berechnung von $p(x)$ ist $n+1$ Multiplikationen und $2(n+1)$ Addition (mit dem Clenshaw-Algorithmus).
+
+\section{Kubische Spline-Interpolation}
+
+Problem: Suche glatte Funktion $s:[a,b]\rightarrow\mathbb{R}$, wie durch vorgegebene Punkte geht.
+\begin{itemize}
+	\item Interpolation: $s(x_i) = y_i$
+	\item glatt: s zweimal stetig differenzierbar und $\int_a^b|s''(x)|^2dx$ minimal
+\end{itemize}
+
+Arten von Splines mit ihren zusaetchlichen Bedingungen:
+
+\begin{itemize}
+	\item Eingespannter: $s'(a) = f'(a)$ und $s'(b) = f'(b)$
+	\item Natuerlicher: $s''(a) = 0$ und $s''(b) = 0$
+	\item Periodischer: $s^{(k)}(a) = s^{(b)}(b)$ fuer $k = 0,1,2$ und $f'(a) = f'(b)$
+\end{itemize}
+
+\subsection{Konstruktion}
+
+$d_i := y[x_i,x_{i+1}]-y[x_{i-1},x_i]$\\\\
+Bei eingespannten Splines gilt außerdem:\\
+$d_0 := y[x_0,x_1] - v_0$\\
+$d_n := v_n - y[x_{n-1},x_n]$\\\\
+
+Insgesamt erhalten wir das lineare Gleichungssystem\\
+$\frac{1}{6}\begin{pmatrix}
+2h_1 & h_1\\
+h_1 & 2(h_1 + h_2) & h_2\\
+    & ... & ... & ...\\
+& & h_{n-1} & 2(h_{n-1}+h_n) & h_n\\
+& & & h_n & 2h_n
+\end{pmatrix}
+\begin{pmatrix}\gamma_0\\\gamma_1\\...\\\gamma_{n-1}\\\gamma_n\end{pmatrix}=
+\begin{pmatrix}d_0\\d_1\\...\\d_{n-1}\\d_n\end{pmatrix}$
+
+
 
 \end{document}
