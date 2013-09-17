@@ -35,7 +35,7 @@ Fuer jede invertierbare Matrix A existiert eine Permutationsmatrix P derart, das
 
 \begin{itemize}
 	\item Bestimme Matrizen P, L und R mit $PA = LR$
-	\item Loese $Lc = Pc$ (Vorwaertssubstitution)
+	\item Loese $Lc = Pb$ (Vorwaertssubstitution)
 	\item Loese $Rx = c$ (Rueckwaertssubstitution)
 \end{itemize}
 
@@ -87,7 +87,7 @@ Aufwand: $\frac{1}{6}n^3$
 
 \section{QR-Zerlegung}
 
-Zu Matrix $A \in \mathbb{R}^{mxn}$ mit $m \geq n$ kontruieren wir Zerlegung\\\\
+Zu Matrix $A \in \mathbb{R}^{mxn}$ mit $m \geq n$ konstruieren wir Zerlegung\\\\
 $A = QR$\\\\
 mit orthogonaler Matrix Q und\\
 $R = \begin{pmatrix}\overline{R}\\0\end{pmatrix}$, $\overline{R}$ obere Dreiecksmatrix
@@ -179,7 +179,8 @@ $f_0 = p(x_0) = a_0$\\
 $f_1 = p(x_1) = a_0 + (x_1 - x_0)a_1$\\
 $f_2 = p(x_2) = a_0 + (x_2 - x_0)a_1 + (x_2 - x_0)(x_2 - x_1)a_2$\\
 
-Aufwand der Koeffizientenbestimmung: n Divisionen, $n(n-1)$ Multiplikationen, $n(n+1)$ Additionen.\\
+Aufwand der Koeffizientenbestimmung:\\
+n Divisionen, $n(n-1)$ Multiplikationen, $n(n+1)$ Additionen.\\
 
 Wir nennen den Koeffizienten $a_n$ die n-te dividierte Differenz von f zu den Stuetzstellen $x_0,...,x_n$ und wir schreiben $f[x_0,...,x_n] := a_n$.\\\\
 
@@ -205,13 +206,13 @@ Aufwand der Berechnung von $p(x)$ ist $n+1$ Multiplikationen und $2(n+1)$ Additi
 
 \section{Kubische Spline-Interpolation}
 
-Problem: Suche glatte Funktion $s:[a,b]\rightarrow\mathbb{R}$, wie durch vorgegebene Punkte geht.
+Problem: Suche glatte Funktion $s:[a,b]\rightarrow\mathbb{R}$, welche durch vorgegebene Punkte geht.
 \begin{itemize}
 	\item Interpolation: $s(x_i) = y_i$
 	\item glatt: s zweimal stetig differenzierbar und $\int_a^b|s''(x)|^2dx$ minimal
 \end{itemize}
 
-Arten von Splines mit ihren zusaetchlichen Bedingungen:
+Arten von Splines mit ihren zusaetzlichen Bedingungen:
 
 \begin{itemize}
 	\item Eingespannter: $s'(a) = f'(a)$ und $s'(b) = f'(b)$
