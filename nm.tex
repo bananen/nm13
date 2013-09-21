@@ -123,7 +123,7 @@ Problem: Fuer vorgegebene Abbildung $F: D \subset \mathbb{R}^n \rightarrow \math
 
 Idee der Fixpunktiteration: $x_{k+1} = F(x_k)$, wobei diese Folge gegen den Fixpunkt $x^*$ konvergiert.\\\\
 
-Eine Abblidung $F: D \rightarrow D \subset \mathbb{R}^n$ ist eine Kontraktion auf D, falls ein $0 \leq \Theta < 1$ existiert mit $||F(x) - F(y)|| \leq \Theta ||x-y||$
+Eine Abbildung $F: D \rightarrow D \subset \mathbb{R}^n$ ist eine Kontraktion auf D, falls ein $0 \leq \Theta < 1$ existiert mit $||F(x) - F(y)|| \leq \Theta ||x-y||$
 
 \subsection{Banachscher Fixpunktsatz}
 Es sei $F: D \rightarrow D$ eine Kontraktion auf D, D abgeschlossene Teilmenge des $\mathbb{R}^n$, mit Kontraktionszahl $0 \leq \Theta < 1$. Dann gilt:
@@ -133,7 +133,7 @@ Es sei $F: D \rightarrow D$ eine Kontraktion auf D, D abgeschlossene Teilmenge d
 	\item Es gelten die Abschaetzungen
 		\begin{itemize}
 			\item $||x^* - x_k|| \leq \Theta ||x^* - x_{k-1}||$ (lineare Konvergenz)
-			\item $||x^* - x_k|| \leq \frac{\Theta}{1 - \Theta} ||x_0 - x_1||$ (a priori-Abschaetzung)
+			\item $||x^* - x_k|| \leq \frac{\Theta^k}{1 - \Theta} ||x_0 - x_1||$ (a priori-Abschaetzung)
 			\item $||x^* - x_k|| \leq \frac{\Theta}{1 - \Theta} ||x_{k-1} - x_k||$ (a posteriori-Abschaetzung)
 		\end{itemize}
 \end{itemize}
@@ -217,7 +217,7 @@ Arten von Splines mit ihren zusaetzlichen Bedingungen:
 \begin{itemize}
 	\item Eingespannter: $s'(a) = f'(a)$ und $s'(b) = f'(b)$
 	\item Natuerlicher: $s''(a) = 0$ und $s''(b) = 0$
-	\item Periodischer: $s^{(k)}(a) = s^{(b)}(b)$ fuer $k = 0,1,2$ und $f'(a) = f'(b)$
+	\item Periodischer: $s^{(k)}(a) = s^{(k)}(b)$ fuer $k = 0,1,2$ und $f'(a) = f'(b)$
 \end{itemize}
 
 \subsection{Konstruktion}
